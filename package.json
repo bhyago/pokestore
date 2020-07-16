@@ -1,0 +1,8 @@
+{
+  "name": "pokestore",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/bhyago/pokestore.git",
+  "author": "bhyago <bhyago@gmail.com>",
+  "license": "MIT"
+}
