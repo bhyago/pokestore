@@ -1,14 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { MdAddShoppingCart } from 'react-icons/md';
 
 import pokemon from '../../assets/images/poke.png'
 import { ProductList, Button } from './styles';
 import rigthButton from '../../assets/images/RightButton.svg';
 import leftButton from '../../assets/images/LeftButton.svg';
+import Header from '../../components/Header';
 
 function Home() {
+
+  const [headerSearch, setHeaderSearch] = useState('');
+
+
   return (
-    <>
+  <>
+
+  <Header search={headerSearch} onSearch={setHeaderSearch}/>
   <ProductList>
     <li>
       <img src={pokemon} alt="pokemon"/>

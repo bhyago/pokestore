@@ -2,13 +2,16 @@ import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 
 import Routes from './routes';
-import Header from './components/Header';
+
+import Cart from './components/cart';
 import GlobalStyles from './styles/global';
+
 
 function App() {
   return (
     <BrowserRouter>
-      <Header />
+
+      <Cart />
       <Routes />
       <GlobalStyles />
     </BrowserRouter>

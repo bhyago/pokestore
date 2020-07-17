@@ -5,7 +5,11 @@ import { Container, Form } from './styles';
 
 import logo from '../../assets/images/logoFire.svg';
 
-export default function Header() {
+export default function Header({ search, onSearch }) {
+
+  const handleChange = (e) => {
+    onSearch( e.target.value);
+  }
 
   return (
     <Container>
@@ -14,7 +18,12 @@ export default function Header() {
       </Link>
 
       <Form action="">
-        <input placeholder="Digite aqui" type="search" name="" id=""/>
+        <input
+         placeholder="Digite aqui"
+         type="text"
+         value={search}
+         onChange={handleChange}
+         />
         <button type="submit">Pesquisar</button>
       </Form>
     </Container>
