@@ -14,9 +14,13 @@ export const ProductList = styled.ul`
     background: #fff;
     border-radius: 10px;
     padding: 20px;
+    box-shadow: 0px 3px 6px rgba(0,0,0, 0.16);
+    cursor: pointer;
 
     img {
+
       align-self: center;
+      max-width: 200px;
     }
 
     > strong {
@@ -79,21 +83,5 @@ export const Button = styled.div`
   button + button {
     margin-left: 50px;
   }
-
-  button {
-    border: 0;
-
-    img {
-      svg:hover circle {
-      fill: ${shade(0.2, '#E05159')}
-    }
-  }
-  }
-
-
-
-
-
-
 `;
 

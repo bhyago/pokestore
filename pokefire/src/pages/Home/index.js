@@ -1,119 +1,63 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { MdAddShoppingCart } from 'react-icons/md';
 
-import pokemon from '../../assets/images/poke.png'
-import { ProductList, Button } from './styles';
-import rigthButton from '../../assets/images/RightButton.svg';
-import leftButton from '../../assets/images/LeftButton.svg';
+import { ProductList } from './styles';
+import api from '../../services/api';
+
 import Header from '../../components/Header';
+import Modal from '../../components/Modal';
+import ModalProduct from '../../components/ModalProduct';
+
 
 function Home() {
 
   const [headerSearch, setHeaderSearch] = useState('');
+  const [category, setCategory] = useState([]);
 
+  const [modalStatus, setModalStatus] = useState(false);
+  const [modalData, setModalData] = useState({});
+
+  useEffect(() => {
+   const getCategory = async () => {
+    const response = await api.get(`/type/10`);
+    const pokemon = response.data.pokemon;
+
+    setCategory(...category, pokemon);
+      };
+      getCategory();
+  }, []);
+
+  const handleProductClick = (data) => {
+    setModalStatus(true);
+  }
 
   return (
+
   <>
+    <Header search={headerSearch} onSearch={setHeaderSearch}/>
+    <ProductList>
+      { category.map(p => (
+        <li key={p.pokemon.name} onClick={handleProductClick}>
+        <img src={`https://pokeres.bastionbot.org/images/pokemon/${
+          p.pokemon.url.split("/").slice(6,7).toString()}.png`} alt={p.pokemon.name} />
+        <strong>{p.pokemon.name}</strong>
+          <span>49,90</span>
 
-  <Header search={headerSearch} onSearch={setHeaderSearch}/>
-  <ProductList>
-    <li>
-      <img src={pokemon} alt="pokemon"/>
+        <button type="button">
+          <div>
+           <MdAddShoppingCart size={16} color="#FFF" /> 3
+          </div>
 
-    <strong>Nome de pokemon</strong>
-    <span>49,90</span>
-
-    <button type="button">
-      <div>
-        <MdAddShoppingCart size={16} color="#FFF" /> 3
-      </div>
-
-      <span>ADICIONAR AO CARRINHO</span>
-    </button>
-    </li>
-    <li>
-      <img src={pokemon} alt="pokemon"/>
-
-    <strong>Nome de pokemon</strong>
-    <span>49,90</span>
-
-    <button type="button">
-      <div>
-        <MdAddShoppingCart size={16} color="#FFF" /> 3
-      </div>
-
-      <span>ADICIONAR AO CARRINHO</span>
-    </button>
-    </li>
-    <li>
-      <img src={pokemon} alt="pokemon"/>
-
-    <strong>Nome de pokemon</strong>
-    <span>49,90</span>
-
-    <button type="button">
-      <div>
-        <MdAddShoppingCart size={16} color="#FFF" /> 3
-      </div>
-
-      <span>ADICIONAR AO CARRINHO</span>
-    </button>
-    </li>
-    <li>
-      <img src={pokemon} alt="pokemon"/>
-
-    <strong>Nome de pokemon</strong>
-    <span>49,90</span>
-
-    <button type="button">
-      <div>
-        <MdAddShoppingCart size={16} color="#FFF" /> 3
-      </div>
-
-      <span>ADICIONAR AO CARRINHO</span>
-    </button>
-    </li>
-    <li>
-      <img src={pokemon} alt="pokemon"/>
-
-    <strong>Nome de pokemon</strong>
-    <span>49,90</span>
-
-    <button type="button">
-      <div>
-        <MdAddShoppingCart size={16} color="#FFF" /> 3
-      </div>
-
-      <span>ADICIONAR AO CARRINHO</span>
-    </button>
-    </li>
-    <li>
-      <img src={pokemon} alt="pokemon"/>
-
-    <strong>Nome de pokemon</strong>
-    <span>49,90</span>
-
-    <button type="button">
-      <div>
-        <MdAddShoppingCart size={16} color="#FFF" /> 3
-      </div>
-
-      <span>ADICIONAR AO CARRINHO</span>
-    </button>
-    </li>
-  </ProductList>
-
-  <Button>
-    <button type="button">
-      <img src={leftButton} alt=""/>
-    </button>
-    <button type="button">
-      <img src={rigthButton} alt=""/>
-    </button>
-
-  </Button>
-
-  </>
+          <span>ADICIONAR AO CARRINHO</span>
+        </button>
+      </li>
+      ))
+      }
+    </ProductList>
+    <Modal status={modalStatus} setStatus={setModalStatus}>
+      <ModalProduct />
+    </Modal>
+</>
   );
 }
 
